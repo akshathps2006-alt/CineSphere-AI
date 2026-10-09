@@ -82,7 +82,7 @@ export default function TMDBCollection() {
       </button>;
     })}</div>}
     {!loading && !error && visibleMovies.length === 0 && <div className="catalog-empty"><strong>No matching movies</strong><p>Try another search or choose a different genre.</p><button className="secondary" onClick={() => { setGenre("All"); setDraftQuery(""); setQuery(""); }} type="button">Reset filters</button></div>}
-    {page < totalPages && !query && genre === "All" && <div className="catalog-load-more"><button className="primary" disabled={loadingMore} onClick={() => void loadPage(page + 1)} type="button">{loadingMore ? "Loading…" : "Load more titles ↓"}</button><span>Page {page} of {totalPages}</span></div>}
+    {page < totalPages && genre === "All" && <div className="catalog-load-more"><button className="primary" disabled={loadingMore} onClick={() => void loadPage(page + 1)} type="button">{loadingMore ? "Loading…" : "Load more titles ↓"}</button><span>Page {page} of {totalPages}</span></div>}
     <p className="tmdb-credit">Movie data and images provided by TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
 
     {selected && <div className="detail-backdrop catalog-modal-backdrop" onClick={closeDetails}><section className="detail catalog-detail" role="dialog" aria-modal="true" aria-label={`${selected.title} details`} onClick={(event) => event.stopPropagation()}>

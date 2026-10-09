@@ -8,7 +8,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
   const token = process.env.TMDB_READ_ACCESS_TOKEN;
   if (!token) return NextResponse.json({ error: "TMDB token is not configured." }, { status: 503 });
   const { id } = await context.params;
-  if (!/^\\d+$/.test(id)) return NextResponse.json({ error: "Invalid movie ID." }, { status: 400 });
+  if (!/^\d+$/.test(id)) return NextResponse.json({ error: "Invalid movie ID." }, { status: 400 });
   try {
     const url = new URL(`https://api.themoviedb.org/3/movie/${id}/videos`);
     url.searchParams.set("language", "en-US");

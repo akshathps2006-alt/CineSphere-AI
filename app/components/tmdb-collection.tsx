@@ -99,12 +99,28 @@ function TMDBCatalog() {
 
 
 export default function TMDBCollection() {
-  const [mode, setMode] = useState<"discover" | "free">("discover");
+  const [mode, setMode] = useState<"discover" | "free" | "services">("discover");
   return <>
     <section className="shell catalog-mode-switch" aria-label="Choose movie catalog">
       <button type="button" className={`catalog-mode-button ${mode === "discover" ? "active" : ""}`} aria-pressed={mode === "discover"} onClick={() => setMode("discover")}><span>✦</span><strong>Discover movies</strong><small>Explore titles & trailers</small></button>
       <button type="button" className={`catalog-mode-button ${mode === "free" ? "active" : ""}`} aria-pressed={mode === "free"} onClick={() => setMode("free")}><span>▶</span><strong>Watch free movies</strong><small>Full-length licensed films</small></button>
+      <button type="button" className={`catalog-mode-button ${mode === "services" ? "active" : ""}`} aria-pressed={mode === "services"} onClick={() => setMode("services")}><span>↗</span><strong>Where to watch free</strong><small>Official ad-supported services</small></button>
     </section>
-    {mode === "free" ? <FreeMoviesCatalog /> : <TMDBCatalog />}
+    {mode === "services" ? <FreeStreamingServices /> : mode === "free" ? <FreeMoviesCatalog /> : <TMDBCatalog />}
   </>;
+}
+
+function FreeStreamingServices() {
+  const services = [
+    { name: "Plex", url: "https://watch.plex.tv/", description: "Explore free, ad-supported movies and TV on Plex.", region: "Availability varies by country and title." },
+    { name: "Tubi", url: "https://tubitv.com/", description: "Browse free, ad-supported movies and shows on Tubi.", region: "Tubi is only available in supported regions; it may not work in India." },
+    { name: "Pluto TV", url: "https://pluto.tv/", description: "Discover free live channels and on-demand movies.", region: "Regional access and movie selection vary." },
+    { name: "Rakuten TV", url: "https://www.rakuten.tv/", description: "Check Rakuten TV for its free, ad-supported movie selection.", region: "Free viewing is limited to supported markets." },
+  ];
+  return <section className="shell free-catalog-section" id="where-to-watch-free">
+    <div className="catalog-intro"><div><div className="eyebrow">OFFICIAL STREAMING DESTINATIONS</div><h2>Where to watch free.</h2><p>Find more full-length movies on legitimate, ad-supported streaming services. Movies open on each provider’s official website.</p></div></div>
+    <div className="free-source-note"><span>↗</span><div><strong>Watch on the provider, not inside CineSphere</strong><p>These are links to official service catalogs, not verified links to individual movies. Availability, ads, account requirements, and regional restrictions depend on each provider. No unauthorized embedding or playback is used.</p></div></div>
+    <div className="catalog-grid">{services.map((service) => <article className="catalog-card" key={service.name} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}><div className="eyebrow">FREE WITH ADS • EXTERNAL</div><h3 style={{ fontSize: "1.6rem", margin: 0 }}>{service.name}</h3><p style={{ margin: 0 }}>{service.description}</p><p className="tmdb-credit" style={{ margin: 0 }}>{service.region}</p><a className="primary" style={{ textAlign: "center", marginTop: "auto" }} href={service.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${service.name} official website`}>Visit {service.name} ↗</a></article>)}</div>
+    <p className="tmdb-credit">CineSphere is not affiliated with these services and does not guarantee that any particular title is free or available in your region. Check the provider’s current catalog and terms.</p>
+  </section>;
 }

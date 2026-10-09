@@ -104,7 +104,7 @@ export default function TMDBCollection() {
   return <>
     <section className="shell catalog-mode-switch" aria-label="Choose movie catalog">
       <button type="button" className={`catalog-mode-button ${mode === "discover" ? "active" : ""}`} aria-pressed={mode === "discover"} onClick={() => setMode("discover")}><span>✦</span><strong>Discover movies</strong><small>Explore titles & trailers</small></button>
-      <button type="button" className={`catalog-mode-button ${mode === "free" ? "active" : ""}`} aria-pressed={mode === "free"} onClick={() => setMode("free")}><span>▶</span><strong>Watch free movies</strong><small>Full-length licensed films</small></button><button type="button" className={`catalog-mode-button ${mode === "providers" ? "active" : ""}`} aria-pressed={mode === "providers"} onClick={() => setMode("providers")}><span>↗</span><strong>Where to watch free</strong><small>Official streaming services</small></button>
+      <button type="button" className={`catalog-mode-button ${mode === "free" ? "active" : ""}`} aria-pressed={mode === "free"} onClick={() => setMode("free")}><span>▶</span><strong>Watch free movies</strong><small>Full-length licensed films</small></button>
       <button type="button" className={`catalog-mode-button ${mode === "services" ? "active" : ""}`} aria-pressed={mode === "services"} onClick={() => setMode("services")}><span>↗</span><strong>Where to watch free</strong><small>Official ad-supported services</small></button>
     </section>
     {mode === "services" ? <FreeStreamingServices /> : mode === "free" ? <FreeMoviesCatalog /> : <TMDBCatalog />}

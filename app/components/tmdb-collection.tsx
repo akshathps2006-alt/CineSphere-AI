@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import FreeMoviesCatalog from "./free-movies";
 
 type TMDBMovie = { id: number; title: string; overview: string; poster_path: string | null; backdrop_path: string | null; release_date: string; vote_average: number; genre_ids: number[] };
 type TMDBVideo = { id: string; key: string; name: string; type: string; official: boolean };
@@ -12,7 +13,7 @@ const CATEGORIES: { id: Category; label: string }[] = [
 const GENRES: Record<number, string> = { 28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Sci-Fi",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western" };
 const posterUrl = (path: string | null, size = "w500") => path ? `https://image.tmdb.org/t/p/${size}${path}` : "";
 
-export default function TMDBCollection() {
+function TMDBCatalog() {
   const [movies, setMovies] = useState<TMDBMovie[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -94,4 +95,16 @@ export default function TMDBCollection() {
       <div className="detail-foot">Movie metadata and trailers are provided by third-party services. CineSphere does not host full-length films.</div>
     </section></div>}
   </section>;
+}
+
+
+export default function TMDBCollection() {
+  const [mode, setMode] = useState<"discover" | "free">("discover");
+  return <>
+    <section className="shell catalog-mode-switch" aria-label="Choose movie catalog">
+      <button type="button" className={`catalog-mode-button ${mode === "discover" ? "active" : ""}`} aria-pressed={mode === "discover"} onClick={() => setMode("discover")}><span>✦</span><strong>Discover movies</strong><small>Explore titles & trailers</small></button>
+      <button type="button" className={`catalog-mode-button ${mode === "free" ? "active" : ""}`} aria-pressed={mode === "free"} onClick={() => setMode("free")}><span>▶</span><strong>Watch free movies</strong><small>Full-length licensed films</small></button>
+    </section>
+    {mode === "free" ? <FreeMoviesCatalog /> : <TMDBCatalog />}
+  </>;
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { tmdbErrorResponse, tmdbGet } from "@/lib/tmdb-server";
+import { tmdbErrorResponse, tmdbGet } from "../../../lib/tmdb-server";
 
 export async function GET() {
   try {

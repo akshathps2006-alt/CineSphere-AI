@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { boundedNumber, safeId, tmdbErrorResponse, tmdbGet } from "@/lib/tmdb-server";
+import { boundedNumber, safeId, tmdbErrorResponse, tmdbGet } from "../../../../../lib/tmdb-server";
 
 export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { boundedNumber, tmdbErrorResponse, tmdbGet } from "@/lib/tmdb-server";
+import { boundedNumber, tmdbErrorResponse, tmdbGet } from "../../../lib/tmdb-server";
 
 export async function GET(request: NextRequest) {
   const p = request.nextUrl.searchParams;
